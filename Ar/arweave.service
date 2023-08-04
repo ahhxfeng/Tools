@@ -1,0 +1,10 @@
+[Unit]
+Description=ArweaveService
+After=multi-user.target
+
+[Service]
+ExecStart=/home/think/start-arweave.sh
+Type=oneshot
+
+[Install]
+WantedBy=multi-user.target

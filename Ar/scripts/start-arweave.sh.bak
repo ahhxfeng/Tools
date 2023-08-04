@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# script for start arweave localnet
+# use think to start service 
+# start the arweave localnet directly without a monitor
+# just set the auto start service in boot time 
+
+#for test 
+now=$(date +"%T")
+
+
+
+cd /home/think
+echo "this script has exec at $now" >> a.log
+cd /home/think/work/arlocalnet/_build/localnet/rel/arweave
+su think -c "./bin/start config_file config.json storage_module 0,dWL9LfeZ747JF_WDOMDsgStia_gwhgjpr3fsLCXhGgE 2>&1 >/dev/null  &"
+
+exit 0
