@@ -13,7 +13,7 @@ def args_parse():
     # parser.add_argument("")
 
     args = parser.parse_args()
-    
+
     return args
 
 # def db_test():
@@ -38,4 +38,3 @@ if __name__ == "__main__":
     cacu_block_time_interval(50, "block_time.json")
     # db_test()
     get_tran_info(1, "transaction_res.json")
-

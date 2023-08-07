@@ -1,4 +1,4 @@
-#coding=utf-8
+# coding=utf-8
 
 import requests
 import json
@@ -7,7 +7,8 @@ from config import HOST
 from cac_time import add_time_file
 from db import do_sql
 
-def get_network_info(url:str, file:str) -> bool:
+
+def get_network_info(url: str, file: str) -> bool:
     """
     get the network info  and wirte to given file format json
     """
@@ -23,7 +24,8 @@ def get_network_info(url:str, file:str) -> bool:
 
 # def get_tx_status()
 
-def check_block_time(block_num:int) -> dict:
+
+def check_block_time(block_num: int) -> dict:
     """
     get the last given num block timestamp return as a dict
     """
@@ -41,11 +43,12 @@ def check_block_time(block_num:int) -> dict:
         url = HOST + "/block/height/{}".format(height)
         res = requests.get(url)
         timestamp = res.json()["timestamp"]
-        ret.update({height : timestamp})
+        ret.update({height: timestamp})
 
     return ret
 
-def cacu_block_time_avg_interval(num:int=0, data:dict=None) -> str:
+
+def cacu_block_time_avg_interval(num: int = 0, data: dict = None) -> str:
     """
     caculate the avg time about the given num blocks
     """
@@ -53,7 +56,7 @@ def cacu_block_time_avg_interval(num:int=0, data:dict=None) -> str:
 
     if data is None:
         data = check_block_time(num)
-    
+
     # get the last and on value from dict
     list_key = list(data.keys())
 
@@ -64,13 +67,7 @@ def cacu_block_time_avg_interval(num:int=0, data:dict=None) -> str:
     return avg_time
 
 
-
-    
-
-
-
-
-def cacu_block_time_interval(num:int, file:str):
+def cacu_block_time_interval(num: int, file: str):
     """
     caculate the time interval about the given num blocks
 
@@ -101,13 +98,20 @@ def cacu_block_time_interval(num:int, file:str):
 
     return True
 
-def get_tran_info(num:int=1, file:str="default.josn"):
+
+def get_tran_info(num: int = 1, file: str = "default.josn"):
     """
     get the newest transcation info 
     default get one 
     """
 
-    sql = "select JSON_OBJECT('id', id, 'create_time', created_at, 'update_time', updated_at, 'tx_id', tx_id, 'last_tx', last_tx, 'owner', owner, 'target', target, 'quantity', quantity, 'data_root', data_root, 'data_size', data_size, 'fee', fee, 'height', height, 'hash', hash, 'timestamp', timestamp, 'tags', tags, 'settled', settled, 'private', private, 'notes', notes) from e_transaction ORDER BY id DESC limit {}".format(num)
+    sql = "select JSON_OBJECT \
+        ('id', id, 'create_time', created_at, 'update_time', updated_at, \
+        'tx_id', tx_id, 'last_tx', last_tx, 'owner', owner, 'target', target,\
+        'quantity', quantity, 'data_root', data_root, 'data_size', data_size, \
+        'fee', fee, 'height', height, 'hash', hash, 'timestamp', timestamp, \
+        'tags', tags, 'settled', settled, 'private', private,\
+         'notes', notes) from e_transaction ORDER BY id DESC limit {}".format(num)
     res = do_sql(sql=sql)
     # print(type(res[0][0]))
 
@@ -118,6 +122,3 @@ def get_tran_info(num:int=1, file:str="default.josn"):
         json.dump(data_dict, f, indent=4)
 
     return True
-
-
-
