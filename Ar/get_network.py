@@ -22,8 +22,6 @@ def get_network_info(url: str, file: str) -> bool:
 
     return True
 
-# def get_tx_status()
-
 
 def check_block_time(block_num: int) -> dict:
     """
@@ -61,8 +59,8 @@ def cacu_block_time_avg_interval(num: int = 0, data: dict = None) -> str:
     list_key = list(data.keys())
 
     total_time = data[list_key[0]] - data[list_key[-1]]
-    totla_block = list_key[0]-list_key[-1]
-    avg_time = total_time/totla_block
+    total_block = list_key[0]-list_key[-1]
+    avg_time = total_time/total_block
 
     return avg_time
 
